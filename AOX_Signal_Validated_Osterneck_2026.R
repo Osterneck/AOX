@@ -1,6 +1,6 @@
 # =============================================================================
 # AOX-HF ALPHA SIGNAL — VALIDATED PRODUCTION SCRIPT
-# Author   : Alex Osterneck (CLA, MSCS, MSIT)
+# Author   : Alex Osterneck,CLA,MSCS,MSIT
 # Entity   : Ai70000, Ltd. — Quantitative Research & Production Lab
 # File     : AOX_Signal_Validated_Osterneck_2026.R
 # Date     : 05/27/26
