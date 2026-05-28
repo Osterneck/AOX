@@ -1,31 +1,31 @@
-# AOX-HF WTI Price Forecasting — V.3 Hybrid Ensemble with Regime-Conditional Alpha Signal
+# AOX v.1 (2023) and AOX-HF v.3 (2026)  WTI Price Forecasting — v.3 Hybrid Ensemble with Regime-Conditional Alpha Signal
 
-**Author:** Alex Osterneck, CLA, MSCS, MSIT, M.Acc (candidate)  
-**Entity:** Ai70000, Ltd. — Quantitative Research & Production Laboratory  
-**Version:** V.3 — May 28, 2026  
-**Sequel to:** Multivariate-time-series WTI-forecasting with VAR(p) and VARMA (CTU-610, 11/12/23)
+**Author:** Alex Osterneck, CLA, MSCS, MSIT
+**Entity:** Ai70000, Ltd. (Quantitative Research & Production Lab)  
+**Version:** v.3 — May 28, 2026  
+**Sequel to:** Multivariate-time-series WTI-forecasting with VAR(p) and VARMA (11/12/23)
 
 ---
 
 ## Overview
 
-This repository contains the complete source code and data for the paper:
+This repository contains the complete production-ready source code and data for the quant-model:
 
-> **WTI Price Forecasting V.3: AOX-HF Hybrid Ensemble with Regime-Conditional Alpha Signal**  
+> **WTI Price Forecasting v.3: AOX-HF Hybrid Ensemble with Regime-Conditional Alpha Signal**  
 > Alex Osterneck, Ai70000, Ltd. (2026)
 
-The paper introduces AOX-HF (Autoregressive Oil Exchange Index — High Frequency), a proprietary macro-adjusted WTI context index, and documents:
+The quant-model introduces AOX-HF (Autoregressive Oil Exchange Index — High Frequency), a proprietary macro-adjusted WTI context index, and documents:
 
-- 4.80% MAPE on 10-day forward WTI price forecasting (V.1 benchmark, 2023)
+- 4.80% MAPE on 10-day forward WTI price forecasting (v.1 benchmark, 2023)
 - Three independent Granger causality confirmations across 2015-2025
 - A regime-conditional interday alpha signal (vol > 45%, DGS10 > 1%)
-- A price alpha signal: 67% OOS directional accuracy, 1.94% expected value per trade, 2.00 win/loss ratio in supply management shock environments
+- A price-alpha signal: 67% OOS directional accuracy, 1.94% expected value per trade, 2.00 win/loss ratio in supply management shock environments
 
 ---
 
 ## Disclaimer
 
-This repository and all associated code, indices, signals, and analyses are produced exclusively for institutional counterparties including hedge funds, commodity trading advisors, proprietary trading desks, energy portfolio managers, and institutional procurement operations. Nothing herein constitutes investment advice, a recommendation to buy or sell any security or commodity, or an offer or solicitation of any kind. Ai70000, Ltd. does not manage, advise, or handle funds on behalf of retail or individual investors. All hypothetical performance results are for illustrative purposes only. Past performance does not guarantee future results.
+This repository and all associated code, indices, signals, and analyses are produced exclusively for institutional counterparties including hedge funds, commodity trading advisors, proprietary trading desks, energy portfolio managers, and institutional procurement operations. Nothing herein constitutes investment advice, a recommendation to buy or sell any security or commodity, or an offer or solicitation of any kind. ai70000, Ltd. does not manage, advise, or handle funds on behalf of retail or individual investors. All hypothetical performance results are for illustrative purposes only. Past performance does not guarantee future results.
 
 ---
 
@@ -43,19 +43,19 @@ AOX-HF-WTI-Forecasting/
 ├── scripts/
 │   ├── AOX_Signal_Validated_Osterneck_2026.R       # CORE — fully executable
 │   ├── AOX_HF_Construction_Osterneck_2026.R        # CORE — fully executable
-│   ├── WTI_Forecast_V3_DualIndex_Osterneck_2026.R  # Ensemble — requires setup
-│   ├── WTI_Forecast_V3_Pipeline_Osterneck_2026.R   # Ensemble — requires setup
+│   ├── WTI_Forecast_v3_DualIndex_Osterneck_2026.R  # Ensemble — requires setup
+│   ├── WTI_Forecast_v3_Pipeline_Osterneck_2026.R   # Ensemble — requires setup
 │   ├── AOX_Backtest_2018_Osterneck_2026.R           # Backtest — requires setup
-│   └── WTI_Forecast_V1_V2_Chronology.R             # Documentation only
+│   └── WTI_Forecast_v1_v2_Chronology.R             # Documentation only
 └── paper/
-    └── WTI_Forecasting_V3_Paper_Osterneck_2026.docx
+    └── WTI_Forecasting_v3_Paper_Osterneck_2026.docx
 ```
 
 ---
 
 ## Reproducing the Core Findings
 
-The validated findings in this paper — Granger causality confirmations, signal day analysis, price alpha results — are fully reproducible using two scripts only:
+The validated findings in this project — Granger causality confirmations, signal day analysis, price alpha results — are fully reproducible using two scripts only:
 
 ### Step 1 — Install R dependencies
 
@@ -93,17 +93,17 @@ source("../scripts/AOX_Signal_Validated_Osterneck_2026.R")
 ### Expected key outputs
 
 ```
-Stationarity:     WTI p=0.096 → p<0.01 | AOX p=0.070 → p<0.01
-VARMA Granger:    F=1.6302 | p=0.1224  (full sample — expected NS)
-Instantaneous:    p=0.0480  (co-movement confirmed)
-Signal days:      2022=112 | 2023=0 | 2024=0 | 2025=29 | Total=141
-Granger vol>45%:  F=2.3023 | p=0.0775
-Lag-1:            p=0.0315  — 1-DAY LEAD CONFIRMED
+Stationarity:     WTI p=0.096 → p < 0.01 | AOX p = 0.070 → p < 0.01
+VARMA Granger:    F = 1.6302 | p = 0.1224  (full sample — expected NS)
+Instantaneous:    p = 0.0480  (co-movement confirmed)
+Signal days:      2022 = 112 | 2023 = 0 | 2024  =0 | 2025 = 29 | Total = 141
+Granger vol>45%:  F = 2.3023 | p = 0.0775
+Lag-1:            p = 0.0315  — 1-DAY LEAD CONFIRMED
 ```
 
 ---
 
-## V.3 Hybrid Ensemble Scripts (Additional Setup Required)
+## v.3 Hybrid Ensemble Scripts (Additional Setup Required)
 
 Scripts 3-5 implement the full VARMA + TFT + Chronos-2 ensemble architecture. These require:
 
@@ -118,22 +118,20 @@ reticulate::py_install(c("chronos-forecasting", "torch",
                           "pandas", "numpy"), pip = TRUE)
 ```
 
-**Note:** The V.3 ensemble MAPE target of 2.5-3.5% is a stated target. Full ensemble validation is in progress. The core validated findings (Granger confirmations, signal analysis, price alpha) are reproducible using scripts 1 and 2 only and do not require the ensemble environment.
+**Note:** The v.3 ensemble MAPE target of 2.5-3.5% is a stated target. Full ensemble validation is in progress. The core validated findings (Granger confirmations, signal analysis, price alpha) are reproducible using scripts 1 and 2 only and do not require the ensemble environment.
 
 ---
 
 ## AOX Index — Genesis Equations
 
-### AOX (Original, V.1 2023) — Proprietary, © Ai70000 Ltd.
+### AOX (Original, v.1 2023) — Proprietary, © Ai70000 Ltd.
 ```
-a(t) = ( FRB Weekly Economic Index (WEI)
-          + AR 3-yr futures WTI-NYMEX-price ) / TMUBMUSD10Y
+a(t) = ( FRB Weekly Economic Index (WEI) + AR 3-yr futures WTI-NYMEX-price ) / TMUBMUSD10Y
 ```
 
-### AOX-HF (High Frequency, V.3 2026) — Proprietary, © Ai70000 Ltd.
+### AOX-HF (High Frequency, v.3 2026) — Proprietary, © Ai70000 Ltd.
 ```
-a(t) = ( ADS Business Conditions Index
-          + AR(3,1,2) 3-yr WTI-NYMEX futures ) / DGS10
+a(t) = ( ADS Business Conditions Index + AR(3,1,2) 3-yr WTI-NYMEX futures ) / DGS10
 
 Guard: DGS10 must exceed 1.00% for signal activation
 ```
@@ -145,13 +143,13 @@ Guard: DGS10 must exceed 1.00% for signal activation
 | Finding | Result |
 |---|---|
 | V.1 MAPE (10-day, 2022) | 4.80% — highly accurate |
-| Granger full sample 2022-2025 | p=0.1224 — NS (expected, regime-conditional) |
-| Granger vol>45% pooled | F=3.15, p=0.0088 — CONFIRMED |
-| Lag-1 lead (geopolitical shock) | p=0.0315 — 1 trading day |
-| Lag-2 lead (supply glut) | p=0.0049 — 2 trading days |
-| 2015-2016 OPEC confirmation | F=4.28, p=0.0146 — CONFIRMED |
-| 2022 Russia-Ukraine confirmation | p=0.0315 — CONFIRMED |
-| 2025 demand dislocation | p=0.0315 — CONFIRMED |
+| Granger full sample 2022-2025 | p = 0.1224 — NS (expected, regime-conditional) |
+| Granger vol  >45% pooled | F = 3.15, p = 0.0088 — CONFIRMED |
+| Lag-1 lead (geopolitical shock) | p = 0.0315 — 1 trading day |
+| Lag-2 lead (supply glut) | p = 0.0049 — 2 trading days |
+| 2015-2016 OPEC confirmation | F = 4.28, p = 0.0146 — CONFIRMED |
+| 2022 Russia-Ukraine confirmation | p = 0.0315 — CONFIRMED |
+| 2025 demand dislocation | p = 0.0315 — CONFIRMED |
 | False positives 2023 | 0 / 259 trading days |
 | False positives 2024 | 0 / 240 trading days |
 | Price alpha OOS hit rate | 67% (supply mgmt shock type) |
@@ -188,22 +186,21 @@ zoo 1.8-12
 
 ## Citation
 
-Osterneck, A. (2026). WTI Price Forecasting V.3: AOX-HF Hybrid Ensemble with
+Osterneck, A. (2026). WTI Price Forecasting v.3: AOX-HF Hybrid Ensemble with
 Regime-Conditional Alpha Signal. Ai70000, Ltd. Quantitative Research & Production
 Laboratory. [Submitted for publication.]
 
 ---
-
 ## License
 
 © 2023-2026 Alex Osterneck / Ai70000, Ltd. All rights reserved.
 
-The AOX and AOX-HF index formulas, construction methodology, and signal specifications
-are proprietary intellectual property of Ai70000, Ltd. The source code in this repository
+The AOX and AOX-HF index formulas, engineering methodology, and signal specifications
+are proprietary intellectual property of ai70000, Ltd. The source code in this repository
 is made available for peer review and academic reproducibility purposes only.
 Commercial use, redistribution, or derivative works require written permission from
 Ai70000, Ltd.
 
 ---
 
-*Ai70000, Ltd. — Quantitative Research & Production Laboratory*
+*Ai70000, Ltd. — Quantitative Research & Production Lab*
