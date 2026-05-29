@@ -1,6 +1,6 @@
 # =============================================================================
-# WTI PRICE FORECASTING — V.3 DUAL-INDEX PIPELINE (EXECUTION SCRIPT)
-# Author   : Alex Osterneck  (CLA, MSCS, MSIT, M.Acc candidate)
+# WTI PRICE FORECASTING — v.3 DUAL-INDEX PIPELINE (EXECUTION SCRIPT)
+# Author   : Alex Osterneck CLA, MSCS, MSIT   //   ai70000, Ltd.
 # File     : WTI_Forecast_V3_Pipeline_Osterneck_2026.R
 # Date     : 05/24/26
 # =============================================================================
