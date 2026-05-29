@@ -1,7 +1,7 @@
 # =============================================================================
 # AOX ALPHA SIGNAL — 2018 Q4 BACKTEST
-# Author   : Alex Osterneck (CLA, MSCS, MSIT, M.Acc candidate)
-# Entity   : Ai70000, Ltd. — Quantitative Research & Production Laboratory
+# Author   : Alex Osterneck (CLA, MSCS, MSIT)
+# Entity   : Ai70000, Ltd. — Quantitative Research & Production Lab
 # File     : AOX_Backtest_2018_Osterneck_2026.R
 # Date     : 05/27/26
 # Google R Style Guide compliant
