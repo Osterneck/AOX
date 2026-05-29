@@ -1,6 +1,6 @@
 # =============================================================================
-# WTI PRICE FORECASTING — HYBRID ENSEMBLE V.3 (DUAL INDEX)
-# Author   : Alex Osterneck  (CLA, MSCS, MSIT, M.Acc candidate)
+# WTI PRICE FORECASTING — HYBRID ENSEMBLE v.3 (DUAL INDEX)
+# Author   : Alex Osterneck, CLA, MSCS, MSIT   //   ai70000, Ltd.
 # File     : WTI_Forecast_V3_DualIndex_Osterneck_2026.R
 # Date     : 05/21/26
 # =============================================================================
