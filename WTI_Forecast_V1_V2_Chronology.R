@@ -1,7 +1,7 @@
 # =============================================================================
 # WTI FORECASTING — BEFORE / AFTER CHRONOLOGY
 # V.1 (11/12/23)  →  V.2 (05/21/26)
-# Author: Alex Osterneck
+# Author: Alex Osterneck, CLA, MSCS, MSIT  // ai70000, Ltd.
 #
 # PURPOSE OF THIS FILE
 # --------------------
@@ -75,14 +75,14 @@ A_diff <- raw_forecast$fcst[["AOX.AOXprice"]][, "fcst"]
 # CHANGE 3: HARDCODED cumsum() SEED → PROGRAMMATIC last()
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # The last observed WTI price was read manually from tail() output and
 # hardcoded as a literal:
 
 tail(AOX_WTI_ts)       # run manually, read 80.55 from console output
 W <- cumsum(W) + 80.55 # literal from manual inspection
 
-# V.2 — AFTER
+# v.2 — AFTER
 # Computed programmatically — works correctly on any dataset refresh:
 
 wti_last <- dplyr::last(as.numeric(AOX_WTI_ts[, "WTI.WTIprice"]))
@@ -92,14 +92,14 @@ W_inv    <- cumsum(W_diff) + wti_last
 # extended to include 2023-2025 data, 80.55 is wrong and the entire price-scale
 # inversion is wrong. The programmatic version is always correct because it
 # reads the last value from whatever data is currently loaded.
-# This is the highest-risk bug in V.1 from a data-refresh perspective.
+# This is the highest-risk bug in v.1 from a data-refresh perspective.
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHANGE 4: REPEATED par(mar=...) → SET ONCE GLOBALLY
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # Margins set manually before each plot (appeared 4 times in the script):
 
 par(mar = c(2.5, 2.5, 2.5, 2.5))
@@ -112,7 +112,7 @@ par(mfrow = c(1, 2))
 acf(STATIONARY, ...)
 pacf(STATIONARY, ...)
 
-# V.2 — AFTER
+# v.2 — AFTER
 # Set once at the top of the script in a global configuration block:
 
 par(mar = c(3, 3, 2.5, 2))   # set once; all plots inherit this
@@ -128,7 +128,7 @@ par(mar = c(3, 3, 2.5, 2))   # set once; all plots inherit this
 # CHANGE 5: COMMENTED-OUT NORMALIZATION → CONDITIONAL FLAG
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # The normalization block was entirely commented out with #### markers,
 # making it invisible as an option and impossible to enable without
 # manually uncommenting multiple lines:
@@ -138,7 +138,7 @@ par(mar = c(3, 3, 2.5, 2))   # set once; all plots inherit this
 ####bestNormalize(AOX_ts, mode = 'scale')
 ####bestNormalize(WTI_ts, mode = 'scale')
 
-# V.2 — AFTER
+# v.2 — AFTER
 # A clean boolean flag at the top of the script; the block runs or skips:
 
 NORMALIZE_INPUTS <- FALSE   # set TRUE to enable
@@ -159,12 +159,12 @@ if (NORMALIZE_INPUTS) {
 # CHANGE 6: invisible() WRAPPER → STANDARD ASSIGNMENT
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # invisible() used to suppress console output from the coefficient extraction:
 
 invisible(est_coefs <- coef(var.a))
 
-# V.2 — AFTER
+# v.2 — AFTER
 # Standard assignment; console output suppressed where needed with
 # suppressMessages() or by not printing intermediate objects:
 
@@ -185,7 +185,7 @@ print(est_coefs)
 # CHANGE 7: FLAT SCRIPT → NAMED FUNCTIONS
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # The entire analysis was a single flat sequential script approximately
 # 200 lines long with no functions. Every line ran at the top level.
 # To re-run any part, the entire script had to be re-executed from the top
@@ -201,7 +201,7 @@ AOX_WTI_ts <- ts(AOX_WTI, frequency = 365, start = c(2022, 1))
 plot(AOX_WTI_ts)
 # ... 180 more lines at the global level ...
 
-# V.2 — AFTER
+# v.2 — AFTER
 # Each logical stage is a named function with explicit inputs and outputs:
 
 LoadData <- function(wti_path = "WTI.csv", aox_path = "AOX.csv") {
@@ -228,7 +228,7 @@ RunVarmaModule <- function(prep, aox_wti_ts, wti) {
 # CHANGE 8: MIXED COMMENT STYLE → UNIFORM SECTION HEADERS
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # Four different comment styles used inconsistently in the same script:
 
 # run forecast on VAR model to determine what price-range over next 50 days
@@ -237,7 +237,7 @@ library(MLmetrics)
 #MAPE between 10% and 25% is low accuracy but still in acceptable range.
 #now run VAR(p), which is VAR(2) model on combined multivariate ts
 
-# V.2 — AFTER
+# v.2 — AFTER
 # One consistent system: === for major sections, --- for subsections,
 # inline # for single-line notes, block comments for multi-line explanation:
 
@@ -256,17 +256,17 @@ var.a <- vars::VAR(STATIONARY, lag.max = LAG_MAX, ic = 'AIC', type = 'none')
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CHANGE 9: PIPE OPERATOR — UNUSED IN V.1, INTRODUCED IN V.2
+# CHANGE 9: PIPE OPERATOR — UNUSED IN V.1, INTRODUCED IN v.2
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.1 — BEFORE
+# v.1 — BEFORE
 # The tidyverse was imported (library(tidyverse)) but the pipe operator
 # was never used. All operations were written as nested calls:
 
 autoplot(ts(STATIONARY, start = c(2022, 1), frequency = 365)) +
   theme(plot.title = element_text(hjust = 0.5))
 
-# V.2 — AFTER
+# v.2 — AFTER
 # Native pipe |> (R 4.1+) used for sequential operations:
 
 ts(STATIONARY, start = c(2022, 1), frequency = TS_FREQ) |>
@@ -283,7 +283,7 @@ ts(STATIONARY, start = c(2022, 1), frequency = TS_FREQ) |>
 # CHANGE 10: CHRONOS MODEL STRING CORRECTION
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# V.2 FIRST DRAFT — WRONG
+# v.2 FIRST DRAFT — WRONG
 # The V.2 script initially used the original 2024 Chronos model string:
 
 pipeline <- chronos$ChronosPipeline$from_pretrained(
@@ -292,7 +292,7 @@ pipeline <- chronos$ChronosPipeline$from_pretrained(
   torch_dtype = torch_py$float32
 )
 
-# V.2 CORRECTED — RIGHT
+# v.2 CORRECTED — RIGHT
 # Chronos-2 was released October 20, 2025. It has a completely different
 # model ID, a different architecture (encoder-only vs. encoder-decoder),
 # and a different inference API:
@@ -325,11 +325,11 @@ pipeline <- chronos2$Chronos2Pipeline$from_pretrained(
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# WHAT ALEX GOT RIGHT IN V.1 — COMPLETE RECORD
+# WHAT WE GOT RIGHT IN v.1 (2023) — COMPLETE RECORD
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# This section documents every correct methodological decision in V.1.
-# None of these changed in V.2.
+# This section documents every correct methodological decision in v.1. (2023)
+# None of these changed in v.2. (2026)
 #
 # 1. COVARIATE SELECTION — AOX (CBOE Oil Volatility Index)
 #    Most analysts would have used Brent as the second variable. Alex used
@@ -389,7 +389,7 @@ pipeline <- chronos2$Chronos2Pipeline$from_pretrained(
 #    acceptable for commodity forecasting; 4.80% is well within that range.
 #
 # 10. RETICULATE BRIDGE
-#     library(reticulate) and py_install("pandas") were included in V.1,
+#     library(reticulate) and py_install("pandas") were included in v.1,
 #     demonstrating awareness that R has ecosystem gaps and Python fills them.
 #     This foresight is directly used in V.2 for the Chronos-2 integration.
-#     V.2 did not introduce reticulate — it was already in V.1.
+#     v.2 did not introduce reticulate — it was already in V.1.
